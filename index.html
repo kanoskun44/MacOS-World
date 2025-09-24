@@ -3,217 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora macOS</title>
+    <title>Bloc de Notas - macOS Style</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="light-theme">
-    <div class="calculator-container">
-        <div class="macos-titlebar">
-            <div class="window-controls">
-                <div class="control close"></div>
-                <div class="control minimize"></div>
-                <div class="control maximize"></div>
+<body>
+    
+    <!-- Barra de título estilo macOS -->
+    <div class="titlebar">
+        <div class="titlebar-left">
+            <div class="titlebar-buttons">
+                <div class="titlebar-button close" id="close-btn">
+                    <span>&times;</span>
+                </div>
+                <div class="titlebar-button minimize" id="minimize-btn">
+                    <span>&minus;</span>
+                </div>
+                <div class="titlebar-button maximize" id="maximize-btn">
+                    <span>+</span>
+                </div>
             </div>
         </div>
-        
-        <div class="calculator">
-            <div class="display-container">
-                <div class="display" id="display">0</div>
-                <div class="memory-indicator" id="memory-indicator"></div>
+        <div class="titlebar-center">
+            Bloc de Notas
+        </div>
+        <div class="titlebar-right">
+            <i class="fas fa-bars titlebar-icon" id="toggle-sidebar"></i>
+            <i class="fas fa-th titlebar-icon" id="change-view"></i>
+            <i class="fas fa-trash titlebar-icon" id="clear-dashboard"></i>
+            <i class="fas fa-plus titlebar-icon" id="new-note-btn"></i>
+        </div>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Panel lateral (Dashboard) -->
+        <div class="sidebar" id="sidebar">
+            <div class="search-container">
+                <input type="text" class="search-box" id="search-box" placeholder="Buscar...">
+                <i class="fas fa-search search-icon"></i>
+                <i class="fas fa-microphone microphone-icon" id="mic-btn"></i>
             </div>
-            
-            <div class="menu-button" id="menu-button">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+
+            <div class="pinned-section">
+                <div class="section-title">
+                    <span>FIJADAS</span>
+                    <div class="section-icons">
+                        <i class="fas fa-th"></i>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+                <ul class="note-list" id="pinned-notes">
+                    <!-- Las notas fijadas se insertarán aquí dinámicamente -->
+                </ul>
             </div>
-            
-            <div class="menu-dropdown" id="menu-dropdown">
-                <div class="menu-item" data-mode="basic">Básica</div>
-                <div class="menu-item" data-mode="scientific">Científica</div>
-                <div class="menu-item" data-mode="programmer">De programación</div>
-                <div class="menu-item" data-mode="converter">Convertir</div>
-                <div class="menu-item">Notas matemáticas...</div>
-                <div class="menu-divider"></div>
-                <div class="menu-item" id="theme-toggle">Modo Oscuro</div>
+
+            <div class="notes-section">
+                <div class="section-title">
+                    <span>NOTAS</span>
+                </div>
+                <ul class="note-list" id="all-notes">
+                    <!-- Todas las notas se insertarán aquí dinámicamente -->
+                </ul>
             </div>
-            
-            <!-- Calculadora Básica -->
-            <div class="keypad basic-mode" id="basic-keypad">
-                <div class="row">
-                    <button class="btn function" data-action="clear">C</button>
-                    <button class="btn function" data-action="sign">±</button>
-                    <button class="btn function" data-action="percent">%</button>
-                    <button class="btn operation" data-operation="÷">÷</button>
-                </div>
-                <div class="row">
-                    <button class="btn number" data-number="7">7</button>
-                    <button class="btn number" data-number="8">8</button>
-                    <button class="btn number" data-number="9">9</button>
-                    <button class="btn operation" data-operation="×">×</button>
-                </div>
-                <div class="row">
-                    <button class="btn number" data-number="4">4</button>
-                    <button class="btn number" data-number="5">5</button>
-                    <button class="btn number" data-number="6">6</button>
-                    <button class="btn operation" data-operation="-">−</button>
-                </div>
-                <div class="row">
-                    <button class="btn number" data-number="1">1</button>
-                    <button class="btn number" data-number="2">2</button>
-                    <button class="btn number" data-number="3">3</button>
-                    <button class="btn operation" data-operation="+">+</button>
-                </div>
-                <div class="row">
-                    <button class="btn number zero" data-number="0">0</button>
-                    <button class="btn number" data-number=".">.</button>
-                    <button class="btn operation equals" data-action="calculate">=</button>
+        </div>
+
+        <!-- Área de edición de notas -->
+        <div class="editor-container" id="editor-container">
+            <div class="editor-hidden" id="editor-hidden">
+                <i class="fas fa-sticky-note"></i>
+                <p>Selecciona una nota o crea una nueva</p>
+            </div>
+
+            <div class="editor" id="editor">
+                <!-- Barra de herramientas superior -->
+                <div class="editor-header">
+                    <div class="editor-search">
+                        <input type="text" id="editor-search-box" placeholder="Buscar en la nota...">
+                        <i class="fas fa-search"></i>
+                        <i class="fas fa-microphone" id="editor-mic-btn"></i>
+                        <i class="fas fa-robot" id="ai-assistant-btn"></i>
+                    </div>
+                    <div class="editor-actions">
+                        <button id="save-note-btn" class="action-btn">
+                            <i class="fas fa-save"></i> Guardar
+                        </button>
+                        <button id="back-btn" class="action-btn">
+                            <i class="fas fa-arrow-left"></i> Regresar
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="memory-functions">
-                    <button class="btn memory" data-memory="mc">mc</button>
-                    <button class="btn memory" data-memory="m+">m+</button>
-                    <button class="btn memory" data-memory="m-">m-</button>
-                    <button class="btn memory" data-memory="mr">mr</button>
-                </div>
-            </div>
-            
-            <!-- Calculadora Científica -->
-            <div class="keypad scientific-mode" id="scientific-keypad" style="display: none;">
-                <div class="row">
-                    <button class="btn scientific secondary" data-func="x³">x³</button>
-                    <button class="btn scientific secondary" data-func="e^x">eˣ</button>
-                    <button class="btn scientific secondary" data-func="10^x">10ˣ</button>
-                    <button class="btn number" data-number="7">7</button>
-                    <button class="btn number" data-number="8">8</button>
-                    <button class="btn number" data-number="9">9</button>
-                    <button class="btn operation" data-operation="÷">÷</button>
-                </div>
-                <div class="row">
-                    <button class="btn scientific secondary" data-func="y√x">ʸ√x</button>
-                    <button class="btn scientific secondary" data-func="ln">ln</button>
-                    <button class="btn scientific secondary" data-func="log">log</button>
-                    <button class="btn number" data-number="4">4</button>
-                    <button class="btn number" data-number="5">5</button>
-                    <button class="btn number" data-number="6">6</button>
-                    <button class="btn operation" data-operation="×">×</button>
-                </div>
-                <div class="row">
-                    <button class="btn scientific secondary" data-func="tan">tan</button>
-                    <button class="btn scientific secondary" data-func="e">e</button>
-                    <button class="btn scientific secondary" data-func="ee">EE</button>
-                    <button class="btn number" data-number="1">1</button>
-                    <button class="btn number" data-number="2">2</button>
-                    <button class="btn number" data-number="3">3</button>
-                    <button class="btn operation" data-operation="-">−</button>
-                </div>
-                <div class="row">
-                    <button class="btn scientific secondary" data-func="sinh">sinh</button>
-                    <button class="btn scientific secondary" data-func="cosh">cosh</button>
-                    <button class="btn scientific secondary" data-func="tanh">tanh</button>
-                    <button class="btn scientific secondary" data-func="pi">π</button>
-                    <button class="btn scientific secondary" data-func="rad">Rad</button>
-                    <button class="btn scientific secondary" data-func="rand">Rand</button>
-                    <button class="btn operation" data-operation="+">+</button>
-                </div>
-                <div class="row">
-                    <button class="btn function" data-action="clear">C</button>
-                    <button class="btn function" data-action="sign">±</button>
-                    <button class="btn function" data-action="percent">%</button>
-                    <button class="btn number zero" data-number="0">0</button>
-                    <button class="btn number" data-number=".">.</button>
-                    <button class="btn operation equals" data-action="calculate">=</button>
+                <div class="toolbar">
+                    <select id="font-family">
+                        <option value="Arial">Arial</option>
+                        <option value="Helvetica">Helvetica</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Palatino">Palatino</option>
+                        <option value="Garamond">Garamond</option>
+                        <option value="Comic Sans MS">Comic Sans MS</option>
+                        <option value="Impact">Impact</option>
+                        <option value="Tahoma">Tahoma</option>
+                        <option value="Trebuchet MS">Trebuchet MS</option>
+                    </select>
+                    
+                    <select id="font-size">
+                        <option value="1">8px</option>
+                        <option value="2">10px</option>
+                        <option value="3">12px</option>
+                        <option value="4">14px</option>
+                        <option value="5">16px</option>
+                        <option value="6">18px</option>
+                        <option value="7">20px</option>
+                        <option value="7">24px</option>
+                        <option value="7">28px</option>
+                        <option value="7">32px</option>
+                    </select>
+                    
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" id="bold-btn"><i class="fas fa-bold"></i></button>
+                        <button class="toolbar-btn" id="italic-btn"><i class="fas fa-italic"></i></button>
+                        <button class="toolbar-btn" id="underline-btn"><i class="fas fa-underline"></i></button>
+                        <button class="toolbar-btn" id="strike-btn"><i class="fas fa-strikethrough"></i></button>
+                    </div>
+                    
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" id="color-btn"><i class="fas fa-palette"></i></button>
+                        <input type="color" id="color-picker" class="hidden">
+                        <button class="toolbar-btn" id="highlight-btn"><i class="fas fa-highlighter"></i></button>
+                        <input type="color" id="highlight-picker" value="#ffff00" class="hidden">
+                    </div>
+                    
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" id="align-left-btn"><i class="fas fa-align-left"></i></button>
+                        <button class="toolbar-btn" id="align-center-btn"><i class="fas fa-align-center"></i></button>
+                        <button class="toolbar-btn" id="align-right-btn"><i class="fas fa-align-right"></i></button>
+                        <button class="toolbar-btn" id="align-justify-btn"><i class="fas fa-align-justify"></i></button>
+                    </div>
+                    
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" id="image-btn"><i class="fas fa-image"></i></button>
+                        <button class="toolbar-btn" id="video-btn"><i class="fas fa-video"></i></button>
+                        <button class="toolbar-btn" id="audio-btn"><i class="fas fa-music"></i></button>
+                        <button class="toolbar-btn" id="link-btn"><i class="fas fa-link"></i></button>
+                    </div>
+                    
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" id="list-ul-btn"><i class="fas fa-list-ul"></i></button>
+                        <button class="toolbar-btn" id="list-ol-btn"><i class="fas fa-list-ol"></i></button>
+                        <button class="toolbar-btn" id="indent-btn"><i class="fas fa-indent"></i></button>
+                        <button class="toolbar-btn" id="outdent-btn"><i class="fas fa-outdent"></i></button>
+                    </div>
+                    
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" id="lock-btn"><i class="fas fa-lock"></i></button>
+                        <button class="toolbar-btn" id="share-btn"><i class="fas fa-share-alt"></i></button>
+                    </div>
                 </div>
                 
-                <div class="memory-functions">
-                    <button class="btn memory" data-memory="mc">mc</button>
-                    <button class="btn memory" data-memory="m+">m+</button>
-                    <button class="btn memory" data-memory="m-">m-</button>
-                    <button class="btn memory" data-memory="mr">mr</button>
+                <div class="editor-content">
+                    <div id="note-title" contenteditable="true" class="note-title" data-placeholder="Título de la nota"></div>
+                    <div id="note-content" contenteditable="true" class="note-content" data-placeholder="Escribe tu nota aquí..."></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Calculadora de Programación -->
-<div class="keypad programmer-mode" id="programmer-keypad">
-    <div class="programmer-display">
-        <div class="number-bases">
-            <button class="base-btn active" data-base="hex">HEX</button>
-            <button class="base-btn" data-base="dec">DEC</button>
-            <button class="base-btn" data-base="oct">OCT</button>
-            <button class="base-btn" data-base="bin">BIN</button>
+    <!-- Menú para nueva nota -->
+    <div class="menu new-note-menu" id="new-note-menu">
+        <div class="menu-item" id="create-note">
+            <i class="fas fa-sticky-note"></i>
+            <span>Crear Nota</span>
         </div>
-        <div class="bit-toggles">
-            <div class="bit-label">BITS</div>
-            <button class="bit-btn" data-bits="8">8</button>
-            <button class="bit-btn" data-bits="16">16</button>
-            <button class="bit-btn active" data-bits="32">32</button>
-            <button class="bit-btn" data-bits="64">64</button>
+        <div class="menu-item" id="create-table">
+            <i class="fas fa-table"></i>
+            <span>Crear Tabla</span>
         </div>
     </div>
-    
-    <div class="row">
-        <button class="btn programmer" data-func="rotl">RotL</button>
-        <button class="btn programmer" data-func="rotr">RotR</button>
-        <button class="btn programmer" data-func="lsh">Lsh</button>
-        <button class="btn programmer" data-func="rsh">Rsh</button>
-        <button class="btn programmer" data-func="lrsh">LRsh</button>
-        <button class="btn programmer" data-func="not">Not</button>
+
+    <!-- Menú para bloqueo -->
+    <div class="menu lock-menu" id="lock-menu">
+        <div class="menu-item" id="set-password">
+            <i class="fas fa-key"></i>
+            <span>Establecer contraseña</span>
+        </div>
+        <div class="menu-item" id="set-pin">
+            <i class="fas fa-thumbtack"></i>
+            <span>Fijar nota</span>
+        </div>
     </div>
-    
-    <div class="row">
-        <button class="btn programmer" data-func="and">And</button>
-        <button class="btn programmer" data-func="or">Or</button>
-        <button class="btn programmer" data-func="xor">Xor</button>
-        <button class="btn programmer" data-func="mod">Mod</button>
-        <button class="btn number" data-number="7">7</button>
-        <button class="btn number" data-number="8">8</button>
-        <button class="btn number" data-number="9">9</button>
-        <button class="btn operation" data-operation="÷">÷</button>
+
+    <!-- Modal de confirmación para regresar -->
+    <div class="modal" id="exit-modal">
+        <div class="modal-content">
+            <h3>¿Salir de la nota?</h3>
+            <p>Tienes cambios sin guardar. ¿Estás seguro de que quieres salir?</p>
+            <div class="modal-buttons">
+                <button id="exit-confirm" class="btn btn-danger">Salir</button>
+                <button id="exit-cancel" class="btn btn-secondary">Continuar editando</button>
+            </div>
+        </div>
     </div>
-    
-    <div class="row">
-        <button class="btn programmer letter" data-value="A">A</button>
-        <button class="btn programmer letter" data-value="B">B</button>
-        <button class="btn programmer letter" data-value="C">C</button>
-        <button class="btn programmer letter" data-value="D">D</button>
-        <button class="btn number" data-number="4">4</button>
-        <button class="btn number" data-number="5">5</button>
-        <button class="btn number" data-number="6">6</button>
-        <button class="btn operation" data-operation="×">×</button>
+
+    <!-- Modal de IA -->
+    <div class="modal" id="ai-modal">
+        <div class="modal-content">
+            <h3>Asistente de IA</h3>
+            <div class="ai-options">
+                <button class="ai-option" data-action="improve">Mejorar redacción</button>
+                <button class="ai-option" data-action="summarize">Resumir texto</button>
+                <button class="ai-option" data-action="translate">Traducir</button>
+                <button class="ai-option" data-action="correct">Corregir ortografía</button>
+            </div>
+            <div class="modal-buttons">
+                <button id="ai-close" class="btn btn-secondary">Cerrar</button>
+            </div>
+        </div>
     </div>
-    
-    <div class="row">
-        <button class="btn programmer letter" data-value="E">E</button>
-        <button class="btn programmer letter" data-value="F">F</button>
-        <button class="btn function" data-action="clear">C</button>
-        <button class="btn function" data-action="sign">±</button>
-        <button class="btn number" data-number="1">1</button>
-        <button class="btn number" data-number="2">2</button>
-        <button class="btn number" data-number="3">3</button>
-        <button class="btn operation" data-operation="-">−</button>
-    </div>
-    
-    <div class="row">
-        <button class="btn programmer secondary" data-func="ce">CE</button>
-        <button class="btn programmer secondary" id="signed-toggle">Signed</button>
-        <button class="btn number zero" data-number="0">0</button>
-        <button class="btn number" data-number=".">.</button>
-        <button class="btn operation equals" data-action="calculate">=</button>
-        <button class="btn operation" data-operation="+">+</button>
-    </div>
-    
-    <div class="memory-functions">
-        <button class="btn memory" data-memory="mc">mc</button>
-        <button class="btn memory" data-memory="m+">m+</button>
-        <button class="btn memory" data-memory="m-">m-</button>
-        <button class="btn memory" data-memory="mr">mr</button>
-    </div>
-</div>
-    
+
     <script src="renderer.js"></script>
 </body>
 </html>

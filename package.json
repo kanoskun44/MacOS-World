@@ -1,7 +1,7 @@
 {
-  "name": "calculadora",
+  "name": "bloc-de-notas",
   "version": "1.0.0",
-  "description": "Calculadora estilo macOS hecha en Electron - SnakeOS",
+  "description": "Bloc de Notas estilo macOS hecho con Electron",
   "main": "main.js",
   "author": "SnakeOS",
   "license": "MIT",
@@ -13,24 +13,37 @@
     "electron": "^31.0.0",
     "electron-builder": "^24.13.3"
   },
+  "dependencies": {
+    "better-sqlite3": "^9.0.0",
+    "axios": "^1.7.0"
+  },
   "build": {
-    "appId": "com.snakeos.snakecalc",
-    "productName": "Calculadora",
+    "appId": "com.snakeos.notas",
+    "productName": "Bloc de Notas",
     "files": [
       "main.js",
-      "index.html",
-      "styles.css",
+      "preload.js",
       "renderer.js",
+      "spellcheck.js",
+      "database.js",
+      "styles.css",
+      "index.html",
       "assets/**/*"
     ],
     "directories": {
       "buildResources": "assets"
     },
     "win": {
-      "icon": "assets/icons/Calculadora.ico",
+      "icon": "assets/icons/app.png",
       "target": [
         "portable"
       ]
+    },
+    "mac": {
+      "icon": "assets/icons/app.icns"
+    },
+    "linux": {
+      "icon": "assets/icons/app.png"
     }
   }
 }
