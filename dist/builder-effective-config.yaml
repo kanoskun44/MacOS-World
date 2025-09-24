@@ -1,0 +1,17 @@
+directories:
+  output: dist
+  buildResources: assets
+appId: com.snakeos.snakecalc
+productName: Calculadora
+files:
+  - filter:
+      - main.js
+      - index.html
+      - styles.css
+      - renderer.js
+      - assets/**/*
+win:
+  icon: assets/icons/Calculadora.ico
+  target:
+    - portable
+electronVersion: 31.7.7

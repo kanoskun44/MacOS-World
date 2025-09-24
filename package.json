@@ -1,0 +1,36 @@
+{
+  "name": "calculadora",
+  "version": "1.0.0",
+  "description": "Calculadora estilo macOS hecha en Electron - SnakeOS",
+  "main": "main.js",
+  "author": "SnakeOS",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.snakeos.snakecalc",
+    "productName": "Calculadora",
+    "files": [
+      "main.js",
+      "index.html",
+      "styles.css",
+      "renderer.js",
+      "assets/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "icon": "assets/icons/Calculadora.ico",
+      "target": [
+        "portable"
+      ]
+    }
+  }
+}
